@@ -1,24 +1,15 @@
+const morgan=require('morgan')
 const Joi=require('joi')
 const express=require('express')
 const logger=require('./logger')
 const app=express()
 
-/*A Middleware is just a function which takes three arguments request object, response object and next(reference to next middleware) , 
-do something and depending on requirements it passes the control to next middleware in the pipeline.Here express.json() returns a
-middleware which checks for a json object in request, if it find the json then it parses json and puts it into req.body and calls 
-next middleware.*/
-
-/*All the Handlers functions defined with the routes are also example of middleware, these are built in middlewares but we can also
-define our own custom middlewares.*/
-
-/*We use app.use() function to install builtin/custom middlewares to the request processing pipeline*/
-
-app.use(express.json())/*it watches the req body and if their is a json then is parses that json and sets req.body to that json*/
-
-app.use(express.urlencoded())/*if the body is url encoded then it parses that as json and sets req.body*/
-
-app.use(express.static('public'))/*used to serve static contents.*/
-
+/**
+ * Their are various third party middlewares which we can use like for authentication,logging and other things
+ * we need to install those middlewares using npm in order to use it
+ * below is the example of a middleware called morgan which logs the info.
+ */
+app.use(morgan('tiny'))/*tiny spicifies that we need a short logging machenisiem.we can configure logger to log into log file*/
 
 const courses=[
     {id:1,"name":'DSA',price:2000},
