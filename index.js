@@ -1,11 +1,16 @@
 const express=require('express')
 const app=express()
 
+app.use(express.json())
 const courses=[
     {id:1,name:'DSA',price:2000},
     {id:2,name:'OS',price:5000},
     {id:3,name:'DBMS',price:4000}
 ]
+
+app.get('/api/courses',(req,res)=>{
+    res.send(courses)
+})
 
 app.get('/api/courses/:id',(req,res)=>{
     const course=courses.find((course)=>{
@@ -16,8 +21,15 @@ app.get('/api/courses/:id',(req,res)=>{
     }
     res.send(course)
 })
-
-
-
+ 
+app.post('/api/courses',(req,res)=>{
+    const course={
+        id:courses.length+1,
+        name:req.body.name,
+        price:req.body.price
+    }
+    courses.push(course)
+    res.send(course)
+})
 const port=process.env.PORT || 3000
 app.listen(port,()=>console.log(`Listning on port ${port}`))
