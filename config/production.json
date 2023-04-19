@@ -1,5 +1,5 @@
 {
-    "name":"My Express App - Developement",
+    "name":"My Express App - Prod",
     "mail":{
         "host":"dev-mail-server"
     }
