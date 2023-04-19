@@ -1,11 +1,4 @@
-const fs=require('fs')
-//we should allaways use async functions
-//remember javascript has only one thread so we should allaways use async functions.
-fs.readdir('./',(err,files)=>{
-    if(err){
-        console.log(err)
-    }
-    else{
-        console.log(files)
-    }
-})
+/*
+-In Node we have a global object and everything in this global object can be accessed from anywere.
+- when we define a variable it does not get assosiated with the global object.
+*/
