@@ -1,23 +1,23 @@
 const express=require('express')
 const app=express()
 
-app.get('/',(req,res)=>{
-    res.send('hello world')
+const courses=[
+    {id:1,name:'DSA',price:2000},
+    {id:2,name:'OS',price:5000},
+    {id:3,name:'DBMS',price:4000}
+]
+
+app.get('/api/courses/:id',(req,res)=>{
+    const course=courses.find((course)=>{
+        return course.id===parseInt(req.params.id)
+    })
+    if(!course){
+        res.status(404).send('Cannot find the course with given ID')
+    }
+    res.send(course)
 })
 
-app.get('/api/courses',(req,res)=>{
-    res.send([1,2,3,4,5])
-})
 
 
-//We use route parameters for required values, route parameters are stored in an object called parms and can be accessed using req,parms
-//we use query string parameters for optional values, query string can be accessed using req.query.req.query is an object.
-//query parameter can be sent as http://localhost:3000/api/courses/10/20?name=Design and Analysis of Algorithms&price=6000
-app.get('/api/posts/:year/:month',(req,res)=>{
-    res.send({query:req.query,params:req.params})
-})
-
-//An enviroment variable is the variable which is the part of env. in which a process runs.
-//we can acess env variable using process object.
 const port=process.env.PORT || 3000
 app.listen(port,()=>console.log(`Listning on port ${port}`))
