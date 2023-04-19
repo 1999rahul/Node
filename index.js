@@ -13,12 +13,13 @@ define our own custom middlewares.*/
 
 /*We use app.use() function to install builtin/custom middlewares to the request processing pipeline*/
 
-app.use(express.json())
-app.use(logger.logger)//using custom middleware defined in logger.js
-app.use((req,res,next)=>{  //using custom middleware directally
-    console.log('Authenticating....')
-    next()
-})
+app.use(express.json())/*it watches the req body and if their is a json then is parses that json and sets req.body to that json*/
+
+app.use(express.urlencoded())/*if the body is url encoded then it parses that as json and sets req.body*/
+
+app.use(express.static('public'))/*used to serve static contents.*/
+
+
 const courses=[
     {id:1,"name":'DSA',price:2000},
     {id:2,"name":'OS',price:5000},
