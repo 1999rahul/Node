@@ -2,7 +2,15 @@ const Joi=require('joi')
 const express=require('express')
 const app=express()
 
+/*A Middleware is just a function which takes request and response objects, do something and depending on requirements it passes
+the control to next middleware in the pipeline.Here express.json() returns a middleware which checks for a json object in request,
+if it find the json then it parses json and puts it into req.body and calls next middleware.*/
+
+/*All the Handlers functions defined with the routes are also example of middleware, these are built in middlewares but we can also
+define our own custom middlewares.*/
+
 app.use(express.json())
+
 const courses=[
     {id:1,"name":'DSA',price:2000},
     {id:2,"name":'OS',price:5000},
