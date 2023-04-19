@@ -5,11 +5,15 @@ const logger=require('./logger')
 const app=express()
 
 /**
- * Their are various third party middlewares which we can use like for authentication,logging and other things
- * we need to install those middlewares using npm in order to use it
- * below is the example of a middleware called morgan which logs the info.
- */
-app.use(morgan('tiny'))/*tiny spicifies that we need a short logging machenisiem.we can configure logger to log into log file*/
+ * Sometimes we need to use middlewares according to enviroments like production,staging or developement
+ * So, we can check for enviroments then use middleware
+ * we can use app.get('env') to get enviroment of current node application, if enviroment is not set then it returns the developement
+ * we can also use process.env.NODE_ENV but first we have to set it.
+ */ 
+if (app.get('env')==='development'){
+    app.use(morgan('tiny'))
+    console.log('Morgan enabled...')
+}
 
 const courses=[
     {id:1,"name":'DSA',price:2000},
