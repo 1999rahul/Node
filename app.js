@@ -4,15 +4,24 @@ We use Http module to send Http request and make backend servers.
 */
 
 const http = require('http')
-const server = http.createServer();
 
- /*
- - when a new request is received to server object, it emits an event named connection, so we can listen to it using on function.
+/*
+In real world we will not use http module directally, instead we will use express or something else
+-instead of on method we can directally work with req and res objects.
  */
-
- server.on('connection',(socket)=>{
-    console.log("connection")
- })
+const server = http.createServer((req,res)=>{
+    if (req.url==='/'){
+        res.write("Hello world")
+        res.end()
+    }
+    if (req.url ==='api/courses'){
+        res.write(JSON.stringify([1,2,3,4,5]))
+        res.end()
+    }
+});
 
  server.listen(3000)
  console.log('Listning on port 3000')
+
+
+
