@@ -11,7 +11,7 @@ const app=express()
  * to store config info using config module we create a folder name config and we define different confile there according to the enviroment
  * we define deafult.json, development.json, production.json to store config files, the name of files should match.
  * sometimes we need to store some sensitive data, we store those data to env. variables and we map a json file to env. variable.
- * by storing the sensetive data in env variable if we push the config files to github then also our data will be scure.
+ * by storing the sensetive data in env variable if we push the config files to github then our data will be scure.
  * the name of the file should must be custom-environment-variables.json, In this file we only define the mappings of settings to env variables
  * we can use config.get() to access the config settings.
  */
