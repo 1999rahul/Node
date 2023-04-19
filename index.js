@@ -1,11 +1,12 @@
+const Joi=require('joi')
 const express=require('express')
 const app=express()
 
 app.use(express.json())
 const courses=[
-    {id:1,name:'DSA',price:2000},
-    {id:2,name:'OS',price:5000},
-    {id:3,name:'DBMS',price:4000}
+    {id:1,"name":'DSA',price:2000},
+    {id:2,"name":'OS',price:5000},
+    {id:3,"name":'DBMS',price:4000}
 ]
 
 app.get('/api/courses',(req,res)=>{
@@ -23,10 +24,21 @@ app.get('/api/courses/:id',(req,res)=>{
 })
  
 app.post('/api/courses',(req,res)=>{
+
+    const schema=Joi.object({
+        name:Joi.string().min(3).required(),
+        price:Joi.number().greater(100).required()
+    })
+    
     const course={
         id:courses.length+1,
         name:req.body.name,
         price:req.body.price
+    }
+    let result=schema.validate(course)
+    if (result.error){
+        res.status(400).send(result.error)
+        return
     }
     courses.push(course)
     res.send(course)
