@@ -3,19 +3,11 @@ const dbDebugger=require('debug')('app:db')
 const express=require('express')
 const app=express()
 
-/**
- * Using console.log statements for debugging is very old way and not a good way of debugging the appliation 
- * we have to remove the console.log statements explicitly if we do not want then
- * using debug module we can control all the debug statements using an enviroment variable.
- * we can create different debug statements for different tasks and control them using enviroment variables.
- * we can have a startup debugger or db debugger and we can control each of them seprately.
- * debug module returns a function and we can pass the scope of the debugger in that function
- * if the enviroment variable is set for a specific debugger then it will work otherwise not.
- * we can set env variable as by running set DEBUG=app:startup for app:startup scope, simmilarly we can set it for different scopes.
- * https://www.npmjs.com/package/debug
- * to set env variables for windows we can use set DEBUG=app:startup.
- * to set multiple env variable we can use set DEBUG=app:startup,app:db
- * we can also control color of the debugger
+/*
+ * Till now we were serving a simple json to the client.
+ * We can also create a HTML and send it to client so that client can see the better representation of data.
+ * we use temelate engine to create HTML, their are various template engines available like pug, ejs...
+ * each template engine has different syntax 
  */
 
 startupDebugger('Morgan enabled...')
