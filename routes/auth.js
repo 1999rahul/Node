@@ -6,7 +6,7 @@ router.post('/',async (req,res)=>{
        /**
         * Perform input validation and Authentication
         */
-       const token=jwt.sign({id:10},'jwtKey')
+       const token=jwt.sign({id:1},'jwtKey')
        res.send(token)
 })
 
