@@ -1,24 +1,35 @@
 /*
- * Sometimes we need to call multiple async operations all at once and without dependency
- * In this case we use Promise.all() which takes array of promise which has to be fulfilled.
+ * we can use async/await in a same way as we use it in c#
+ * promise is simmilar to Task in c#
+ * when we call async function/Promise returning functions we call then in an async function.
+ * to handle errors in async function we use try/catch, in promises we were using catch() method.
 */
 
-const p1=new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-        console.log("Async Operation 1")
-        resolve({id:1})
-    },2000)
-})
 
-const p2=new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-        console.log("Async Operation 2")
-        resolve({id:2})
-    },2000)
-})
+getData()
+async function getData(){
+    try{
+        const x=await fun1()
+        const y=await fun2()
+    }
+    catch{
+        //handle error
+    }
+}
+function fun1(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            console.log("Async Operation 1")
+            resolve({id:1})
+        },2000)
+    })
 
-Promise.all([p1,p2]).then((res)=>{
-    console.log(res)
-}).catch((err)=>{
-    console.log(err)
-})
+}
+function fun2(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            console.log("Async Operation 2")
+            resolve({id:2})
+        },2000)
+    })
+}
