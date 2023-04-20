@@ -6,7 +6,7 @@ users=[]
 
 router.get('/me',auth,async (req,res)=>{
        /**
-        * extract user id for req.user and erite logic for getting user data
+        * extract user id for req.user and write logic for getting user data
         */
        res.send(req.user)
 })
