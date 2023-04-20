@@ -3,12 +3,13 @@ const dbDebugger=require('debug')('app:db')
 const express=require('express')
 const app=express()
 
+
 /*
- * Till now we were serving a simple json to the client.
- * We can also create a HTML and send it to client so that client can see the better representation of data.
- * we use temelate engine to create HTML, their are various template engines available like pug, ejs...
- * each template engine has different syntax 
+ * We can connect to various DB using node.
+ * we have to just install the driver and require it.
+ * we will get all the api's to perform operations.
  */
+ 
 
 startupDebugger('Morgan enabled...')
 dbDebugger('dbDebugger')
