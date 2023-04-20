@@ -11,8 +11,8 @@ console.log("Before")
 getUser(10,(user)=>{
     console.log(user)
     getRepos(user.userName,(repos)=>{
-        console.log(repos)                   /*Callback Hell */
-    })
+        console.log(repos)                   /*Callback Hell, We can use named function to avoid the callback hell*/
+    }) 
 })
 console.log("After")
 
