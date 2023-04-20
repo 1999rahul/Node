@@ -1,28 +1,16 @@
-const startupDebugger=require('debug')('app:startup')
-const dbDebugger=require('debug')('app:db')
+const courses=require('./routes/courses')
 const express=require('express')
 const app=express()
 
-
 /*
- * We can connect to various DB using node.
- * we have to just install the driver and require it.
- * we will get all the api's to perform operations.
+  * index.js is our startup file and we should not pollute it by putting everything here.
+  * we can seperate the logic into different module and export it.
+  * To seperate routes we use express router export and then use it as a middleware.
+  * just like router we can move our all middleware into different folder.
  */
- 
 
-startupDebugger('Morgan enabled...')
-dbDebugger('dbDebugger')
-// if (app.get('env')==='development'){
-//     app.use(morgan('tiny'))
-//     startupDebugger('Morgan enabled...')
-// }
- 
-const courses=[
-    {id:1,"name":'DSA',price:2000},
-    {id:2,"name":'OS',price:5000},
-    {id:3,"name":'DBMS',price:4000}
-]
+ app.use(express.json())
+ app.use('/api/courses',courses)
 
 const port=process.env.PORT || 3000
 app.listen(port,()=>console.log(`Listning on port ${port}`))
