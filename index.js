@@ -6,27 +6,31 @@
 /*
  * using callbacks for handling async operations leads to nested and unreadable code so we will avoid using callbacks.
  * we will use promises or async/await for handling async operations.
+ * we chain the async operations to get the clean structure.
 */
 console.log("Before")
-getUser(10,(user)=>{
-    console.log(user)
-    getRepos(user.userName,(repos)=>{
-        console.log(repos)                   /*Callback Hell, We can use named function to avoid the callback hell*/
-    }) 
-})
+const p=getUser(10)
+                  .then((user)=>{getRepos(user.userName)})
+                  .then((repos)=>{console.log(repos)})
+                  .catch(err=>{console.log(err)})
+
 console.log("After")
 
-function getUser(id,callback){
+function getUser(id){  
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            console.log("reading user from DB...")
+            resolve({id:id,userName:'myName'})
+        },2000)
+    })
     
-    setTimeout(()=>{
-        console.log("reading user from DB...")
-        callback({id:id,userName:'myName'})
-    },2000)
 }
 
-function getRepos(userName,callback){
-    setTimeout(()=>{
-          console.log(`Getting repos of ${userName}`)
-          callback(['repo 1','repo 2','repo 3'])
-    },2000)
+function getRepos(userName){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            console.log(`Getting repos of ${userName}`)
+            resolve(['repo 1','repo 2','repo 3'])
+      },2000)
+    })
 }
