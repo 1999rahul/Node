@@ -5,3 +5,5 @@ users=[]
 router.post('/',async (req,res)=>{
        users.push(req.body)
 })
+
+module.exports=router
