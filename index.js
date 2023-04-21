@@ -1,3 +1,4 @@
+require('express-async-errors')
 const express=require('express')
 const courses=require('./routes/courses')
 const error = require('./middlewares/error')
@@ -32,17 +33,25 @@ function asyncErrorHandlerMiddleware(handler){
  * We are just returning a function from asyncErrorHandlerMiddleware.
  * Now we can just move the asyncErrorHandlerMiddleware to a new module and start using it.
  */
+
+/**
+ * To handle exceptions we have to wrap each of our handlers to asyncErrorHandlerMiddleware
+ * This makes our code look ugly
+ * Using express-async-errors module we don't have to define asyncErrorHandlerMiddleware, so we can remove it but we still have to define the error handler middleware which we use at last.
+ * express-async-errors module encapulates the logic of asyncErrorHandlerMiddleware and we also do not need to call any function in our routes.
+ * if this module does not works then we should use the previous approch.
+ */
 app.use(express.json())
 app.use('/api/courses',courses)
 
-app.get('/api/welcome',asyncErrorHandlerMiddleware((req,res)=>{
+app.get('/api/welcome',(req,res)=>{
     //throw new Error()
     res.send({
         messege:'Welcome to NodeJs'
     })
-}))
+})
 
 
-app.use(error)
+app.use(error) 
 
 app.listen(3000,()=>{console.log("Listning on 3000")})
