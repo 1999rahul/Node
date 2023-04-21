@@ -4,6 +4,11 @@ const courses=require('./routes/courses')
 const error = require('./middlewares/error')
 const winston=require('winston')
 const app=express()
+
+process.on('uncaughtException',(ex)=>{
+    console.log("We Got an uncaught exception")
+   // winston.error(ex.message,ex)
+})
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
@@ -14,51 +19,18 @@ const logger = winston.createLogger({
     ],
   })
 
-/**
- * We can use try catch block to handle the exception but this is very repetative task.
- * In this Example we have used try catch block with custom error handler middlewere
- * In Express we can define a error handler middleware with four parameters and we keep it at the end of all middlewares.
- * If any Exception occurs then we call this middleware using next method in request handler.
- * By using this method our error messages will be at a cetral place and easy to modify.
- * But we still have to write a lot of try catch block
- */
-/**
- * To get rid of writing try catch every time we can define a generic function and pass request handler to it.
- * this generic function will return the async handler and will wrap try catch logic for whole application.
- */
+ // throw new Error() this line will not be caught by winston because it is out of scope of express.
 
-function asyncErrorHandlerMiddleware(handler){
-    return async (req,res,next)=>{
-        try{
-            await handler(req,res)
-        }
-        catch(ex){
-            next(ex)
-        }
-    }
-}
-/**
- * Now we can wrap our request handler inside asyncErrorHandlerMiddleware function and handle errors globally.
- * asyncErrorHandlerMiddleware is not an real async function as we are not performing any async task.
- * We are just returning a function from asyncErrorHandlerMiddleware.
- * Now we can just move the asyncErrorHandlerMiddleware to a new module and start using it.
- */
+  /**
+   * Till now we were only handling exceptions in the context of express request response cycle.
+   * If any exceptions occurs outside of express scope then it will stop our application.
+   * To handle these uncaught exceptions we use the process object'
+   * when a exception occurs in an node application outside the scope of express, it raises uncaughtException.
+   * we can handle that uncaught exception using process.on method.
+   */
 
-/**
- * To handle exceptions we have to wrap each of our handlers to asyncErrorHandlerMiddleware
- * This makes our code look ugly
- * Using express-async-errors module we don't have to define asyncErrorHandlerMiddleware, so we can remove it but we still have to define the error handler middleware which we use at last.
- * express-async-errors module encapulates the logic of asyncErrorHandlerMiddleware and we also do not need to call any function in our routes.
- * if this module does not works then we should use the previous approch.
- */
+throw new Error("error messege")
 
-/**
- * To log the data we can use winstion module.
- * Using this module we can use different methods to log messeges.
- * we can log in console,file,http services or in a database.
- * winstion library by deafult logs messeges into console but we can configure it to log messeges anywere.
- * Here we will configure it to log messeges in to a log file.
- */
 app.use(express.json())  
 app.use('/api/courses',courses)
 
