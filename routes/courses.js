@@ -8,6 +8,7 @@ router.get('/',async (req,res,next)=>{
         /**
          * Logic for getting data from DB 
          */
+        
         const courses=[
             {id:1,name:"Physics"},
             {id:2,name:"maths"}
