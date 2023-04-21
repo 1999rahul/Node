@@ -69,6 +69,7 @@
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",
     "vary": "^1.1.2",
+    "winston": "^3.8.2",
     "yallist": "^4.0.0"
   },
   "scripts": {
