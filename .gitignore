@@ -1,6 +1,7 @@
 #Application keys
 config/keys.js
-
+#VsCode Launch File
+.vscode/
 # Logs
 logs
 *.log
